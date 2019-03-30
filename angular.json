@@ -7,7 +7,7 @@
       "root": "projects/ngx-toast-ui-editor",
       "sourceRoot": "projects/ngx-toast-ui-editor/src",
       "projectType": "library",
-      "prefix": "lib",
+      "prefix": "tui",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
@@ -31,9 +31,7 @@
               "projects/ngx-toast-ui-editor/tsconfig.lib.json",
               "projects/ngx-toast-ui-editor/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }

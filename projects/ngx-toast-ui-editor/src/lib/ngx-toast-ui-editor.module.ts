@@ -1,10 +1,9 @@
-import { NgModule } from '@angular/core';
-import { NgxToastUiEditorComponent } from './ngx-toast-ui-editor.component';
+import { NgModule } from "@angular/core";
+import { ViewerComponent } from "./viewer/viewer.component";
 
 @NgModule({
-  declarations: [NgxToastUiEditorComponent],
-  imports: [
-  ],
-  exports: [NgxToastUiEditorComponent]
+  declarations: [ViewerComponent],
+  imports: [],
+  exports: [ViewerComponent]
 })
-export class NgxToastUiEditorModule { }
+export class NgxToastUiEditorModule {}
