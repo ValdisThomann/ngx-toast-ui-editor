@@ -12,9 +12,12 @@ import {
 } from "@angular/core";
 import Viewer from "tui-editor/dist/tui-editor-Viewer";
 
-import { Options } from "./viewer.models";
+import { ViewerOptions } from "./viewer.models";
 
-const viewerEvents = ["load", "change"];
+enum viewerEvents {
+  load = "load",
+  change = "change"
+}
 
 @Component({
   selector: "tui-viewer",
@@ -23,7 +26,7 @@ const viewerEvents = ["load", "change"];
 })
 export class ViewerComponent implements OnInit, OnChanges {
   @Input() value: string;
-  @Input() options: Options;
+  @Input() options: ViewerOptions;
 
   @Output() load = new EventEmitter();
   @Output() change = new EventEmitter();
@@ -49,8 +52,7 @@ export class ViewerComponent implements OnInit, OnChanges {
   }
 
   private bindEventHandlers() {
-    viewerEvents.forEach(eventName =>
-      this.viewerInst.on(eventName, event => this[eventName].emit(event))
-    );
+    this.viewerInst.on(viewerEvents.load, event => this.load.emit(event));
+    this.viewerInst.on(viewerEvents.change, event => this.change.emit(event));
   }
 }

@@ -1,4 +1,4 @@
-export interface Options {
+export interface ViewerOptions {
   useDefaultHTMLSanitizer: boolean;
   codeBlockLanguages: any;
   customConvertor: any;
