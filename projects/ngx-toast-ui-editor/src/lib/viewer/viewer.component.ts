@@ -18,7 +18,7 @@ const viewerEvents = ["load", "change"];
 
 @Component({
   selector: "tui-viewer",
-  template: "<div #rootEl>test</div>",
+  template: "<div #rootEl></div>",
   encapsulation: ViewEncapsulation.None
 })
 export class ViewerComponent implements OnInit, OnChanges {
