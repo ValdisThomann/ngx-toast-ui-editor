@@ -1,58 +1,56 @@
-// import { storiesOf } from "@storybook/angular";
-// import { action } from "@storybook/addon-actions";
-// import { linkTo } from "@storybook/addon-links";
+import "codemirror/lib/codemirror.css";
+import "highlight.js/styles/github.css";
+import "tui-editor/dist/tui-editor.min.css";
+import "tui-editor/dist/tui-editor-contents.min.css";
 
-// import { Welcome, Button } from "@storybook/angular/demo";
+import "tui-editor/dist/tui-editor-extScrollSync";
+import "tui-editor/dist/tui-editor-extColorSyntax";
+import "tui-editor/dist/tui-editor-extUML";
+import "tui-editor/dist/tui-editor-extChart";
+import "tui-editor/dist/tui-editor-extTable";
 
-// const stories = storiesOf("Editor", module);
-// // .addDecorator(withKnobs);
+import { storiesOf, moduleMetadata } from "@storybook/angular";
+import { withKnobs, array } from "@storybook/addon-knobs";
 
-// stories.add('demo', () => {
-//     const { content } = basicViewerDummy;
+import { data } from "../storyData";
+import { NgxToastUiEditorModule } from "../../projects/ngx-toast-ui-editor/src/public_api";
 
-// });
+storiesOf("Editor", module)
+  .addDecorator(
+    moduleMetadata({
+      imports: [NgxToastUiEditorModule]
+    })
+  )
+  .addDecorator(withKnobs)
+  .add("demo", () => {
+    const { content, exts } = data;
+    return {
+      template: "<tui-editor [options]='options'></tui-editor>",
+      props: {
+        options: {
+          initialValue: content,
+          previewStyle: "vertical",
+          height: "600px",
+          initialEditType: "markdown",
+          useCommandShortcut: true,
+          exts: exts
+        }
+      }
+    };
+  })
+  .add("customize toolbar", () => {
+    const toolbarItems = array("toolbarItems", data.toolbarItems);
 
-// storiesOf("Editor", module).add("to Storybook", () => ({
-//   component: Welcome,
-//   props: {}
-// }));
-
-// storiesOf("Button", module)
-//   .add("with text", () => ({
-//     component: Button,
-//     props: {
-//       text: "Hello Button"
-//     }
-//   }))
-//   .add(
-//     "with some emoji",
-//     () => ({
-//       component: Button,
-//       props: {
-//         text: "😀 😎 👍 💯"
-//       }
-//     }),
-//     { notes: "My notes on a button with emojis" }
-//   )
-//   .add(
-//     "with some emoji and action",
-//     () => ({
-//       component: Button,
-//       props: {
-//         text: "😀 😎 👍 💯",
-//         onClick: action("This was clicked OMG")
-//       }
-//     }),
-//     { notes: "My notes on a button with emojis" }
-//   );
-
-// storiesOf("Another Button", module).add(
-//   "button with link to another story",
-//   () => ({
-//     component: Button,
-//     props: {
-//       text: "Go to Welcome Story",
-//       onClick: linkTo("Welcome")
-//     }
-//   })
-// );
+    return {
+      template: "<tui-editor [options]='options'></tui-editor>",
+      props: {
+        options: {
+          intialValue: "hello customize toolbar",
+          previewStyle: "vertical",
+          height: "400px",
+          initialEditType: "markdown",
+          toolbarItems: toolbarItems
+        }
+      }
+    };
+  });

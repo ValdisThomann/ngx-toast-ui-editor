@@ -1,4 +1,40 @@
-export const basicViewerDummy = {
+export const data = {
+  exts: [
+    {
+      name: "chart",
+      minWidth: 100,
+      maxWidth: 600,
+      minHeight: 100,
+      maxHeight: 300
+    },
+    "scrollSync",
+    "colorSyntax",
+    "uml",
+    "mark",
+    "table"
+  ],
+  toolbarItems: [
+    "heading",
+    "bold",
+    "italic",
+    "strike",
+    "divider",
+    "hr",
+    "quote",
+    "divider",
+    "ul",
+    "ol",
+    "task",
+    "indent",
+    "outdent",
+    "divider",
+    "table",
+    "image",
+    "link",
+    "divider",
+    "code",
+    "codeblock"
+  ],
   content: [
     "![image](https://cloud.githubusercontent.com/assets/389021/16107646/9729e556-33d8-11e6-933f-5b09fa3a53bb.png)",
     "# Heading 1",

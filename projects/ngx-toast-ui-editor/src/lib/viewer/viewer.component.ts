@@ -32,6 +32,9 @@ export class ViewerComponent implements OnInit, OnChanges {
   @ViewChild("rootEl") rootEl: ElementRef;
 
   private viewerInst = null;
+  getInstance() {
+    return this.viewerInst;
+  }
 
   ngOnInit() {
     this.viewerInst = new Viewer({
@@ -44,7 +47,7 @@ export class ViewerComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes.value) {
+    if (this.viewerInst && changes.value) {
       this.viewerInst.setMarkdown(changes.value.currentValue);
     }
   }

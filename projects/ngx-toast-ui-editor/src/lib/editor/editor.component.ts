@@ -22,7 +22,7 @@ enum editorEvents {
 
 @Component({
   selector: "tui-editor",
-  template: "<div #rootEl>test</div>",
+  template: "<div #rootEl></div>",
   encapsulation: ViewEncapsulation.None
 })
 export class EditorComponent implements OnInit {
@@ -37,6 +37,9 @@ export class EditorComponent implements OnInit {
   @ViewChild("rootEl") rootEl: ElementRef;
 
   private editorInst = null;
+  getInstance() {
+    return this.editorInst;
+  }
 
   ngOnInit() {
     this.editorInst = new Editor({
@@ -48,7 +51,7 @@ export class EditorComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes.options) {
+    if (this.editorInst && changes.options) {
       const { height, previewStyle } = changes.options.currentValue;
       const { prevHeight, prevPreviewStyle } = changes.options.previousValue;
       if (height !== prevHeight) {
