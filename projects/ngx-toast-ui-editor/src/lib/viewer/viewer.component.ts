@@ -12,8 +12,6 @@ import {
 } from "@angular/core";
 import Viewer from "tui-editor/dist/tui-editor-Viewer";
 
-import { ViewerOptions } from "./viewer.models";
-
 enum viewerEvents {
   load = "load",
   change = "change"
@@ -26,7 +24,7 @@ enum viewerEvents {
 })
 export class ViewerComponent implements OnInit, OnChanges {
   @Input() value: string;
-  @Input() options: ViewerOptions;
+  @Input() options: tuiEditor.IViewerOptions;
 
   @Output() load = new EventEmitter();
   @Output() change = new EventEmitter();

@@ -12,41 +12,61 @@ import {
 
 import Editor from "tui-editor";
 
+enum editorEvents {
+  load = "load",
+  change = "change",
+  stateChange = "stateChange",
+  focus = "focus",
+  blur = "blur"
+}
+
 @Component({
   selector: "tui-editor",
   template: "<div #rootEl>test</div>",
   encapsulation: ViewEncapsulation.None
 })
 export class EditorComponent implements OnInit {
-  @Input() value: string;
-  // @Input() options: Options;
+  @Input() options: tuiEditor.IEditorOptions;
 
   @Output() load = new EventEmitter();
   @Output() change = new EventEmitter();
+  @Output() stateChange = new EventEmitter();
+  @Output() focus = new EventEmitter();
+  @Output() blur = new EventEmitter();
 
   @ViewChild("rootEl") rootEl: ElementRef;
 
-  private viewerInst = null;
+  private editorInst = null;
 
   ngOnInit() {
-    this.viewerInst = new Editor({
+    this.editorInst = new Editor({
       el: this.rootEl.nativeElement,
-      initialValue: this.value
-      // ...this.options
+      ...this.options
     });
 
     this.bindEventHandlers();
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes.value) {
-      this.viewerInst.setMarkdown(changes.value.currentValue);
+    if (changes.options) {
+      const { height, previewStyle } = changes.options.currentValue;
+      const { prevHeight, prevPreviewStyle } = changes.options.previousValue;
+      if (height !== prevHeight) {
+        this.editorInst.height(height);
+      }
+      if (previewStyle !== prevPreviewStyle) {
+        this.editorInst.changePreviewStyle(previewStyle);
+      }
     }
   }
 
   private bindEventHandlers() {
-    // viewerEvents.forEach(eventName =>
-    //   this.viewerInst.on(eventName, event => this[eventName].emit(event))
-    // );
+    this.editorInst.on(editorEvents.load, event => this.load.emit(event));
+    this.editorInst.on(editorEvents.change, event => this.change.emit(event));
+    this.editorInst.on(editorEvents.stateChange, event =>
+      this.stateChange.emit(event)
+    );
+    this.editorInst.on(editorEvents.focus, event => this.focus.emit(event));
+    this.editorInst.on(editorEvents.blur, event => this.blur.emit(event));
   }
 }
